@@ -1,16 +1,12 @@
-import sqlite3
 import pandas as pd
-import git
-from git import Repo
+import CommonUtil
+from CommonUtil import getSQliteConnection, pushToGitRepo
+
+# Global Variables
+filename = "hardware"
 
 def main():
-    filename = "hardware"
-    con = sqlite3.connect(filename+".db")
-    wb = pd.ExcelFile(filename+'.xlsx')
-    for sheet in wb.sheet_names:
-        df = pd.read_excel(filename+'.xlsx',sheet_name=sheet)
-        df.to_sql(sheet, con, index=False, if_exists="replace")
-    con.commit()
+    con = getSQliteConnection(filename)
     writer = pd.ExcelWriter('Level1CraftDemoOutput.xlsx')
     getDepartmentList(pd,con,writer)
     getApplicationList(pd,con,writer)
@@ -55,12 +51,5 @@ def getCPUandMemoryUsageByDataCenter(pd,con,writer):
     df_sum_cpu_memory_site.to_excel(writer, 'CPU and Memory Usage by DC')
     writer.save()
 
-def pushToGitRepo():
-    repo = git.Repo()
-    commit_message = 'Push results to Git Repo'
-    repo.git.add('--all')
-    repo.index.commit(commit_message)
-    origin = repo.remote('origin')
-    origin.push()
 
 main()
