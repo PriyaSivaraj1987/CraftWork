@@ -76,7 +76,7 @@ def main():
     writer.save()
     writer.close()
 
-    pushToGitRepo()
+    pushToGitRepo("Level2CraftDemo changes")
 
 def getCostMappingDF():
     df = pd.read_excel('costMapper.xlsx')

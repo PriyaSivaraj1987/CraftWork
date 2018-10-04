@@ -17,10 +17,9 @@ def getSQliteConnection(filename):
     con.commit()
     return con
 
-def pushToGitRepo():
+def pushToGitRepo(commitMessage):
     repo = git.Repo()
-    commit_message = 'Push results to Git Repo'
     repo.git.add('--all')
-    repo.index.commit(commit_message)
+    repo.index.commit(commitMessage)
     origin = repo.remote('origin')
     origin.push()

@@ -15,7 +15,7 @@ def main():
     getCPUandMemoryUsageByDataCenter(pd,con,writer)
     writer.close()
     con.close()
-    pushToGitRepo()
+    pushToGitRepo("Level1CraftDemo changes")
 
 def getDepartmentList(pd,con,writer):
     df_listofdep = pd.read_sql_query("SELECT DISTINCT `Group` FROM `Page 1` WHERE `Logical status` = 'Operational'",con)
